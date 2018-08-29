@@ -181,6 +181,40 @@
   </div>
 </template>
 
+<script>
+  var HEIGHT_COEFFICIENT = 1.337;
+  var SPEED_WIND = 5;
+  var SPEED_AGENST_WIND = 2;
+
+  //Размер файрбола
+  var fireballSize = 22;
+
+  //Скорость файрбола в зависимости от направления ветра
+  var getFireballSpeed = function (left) {
+    return left ? SPEED_WIND : SPEED_AGENST_WIND;
+  }
+
+  //Скорость мага
+  var wizardSpeed = 3;
+
+  //Ширина мага
+  var wizardWidth = 70;
+
+  //Высота мага
+  var getWizardHeight = function () {
+    return HEIGHT_COEFFICIENT * wizardWidth;
+  };
+
+  //Располагаем волшебника по центру
+  var getWizardX = function(width) {
+    return (width/2)-(wizardWidth/2);
+  }
+
+  //Располагаем волшебника в 2/3 от земли
+  var getWizardY = function(height) {
+    return (height/3)*2 - getWizardHeight();
+  }
+</script>
 <script src="js/game.js"></script>
 
 </body>
