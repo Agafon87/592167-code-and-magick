@@ -1,6 +1,6 @@
 'use strict';
 
-//Объявляем константы
+// Объявляем константы
 var CLOUD_X = 100;
 var CLOUD_Y = 10;
 var CLOUD_WIDTH = 420;
@@ -14,23 +14,23 @@ var GAP = 10;
 var SUCCESS_TEXT_X = 110;
 var SUCCESS_TEXT_Y = 40;
 
-//Функция отрисовки облака
+// Функция отрисовки облака
 var renderCloud = function (ctx, x, y, color){
   ctx.fillStyle = color;
   ctx.fillRect(x, y, CLOUD_WIDTH, CLOUD_HEIGTH);
 };
 
-//Функция для подсчета высоты гистограммы
+// Функция для подсчета высоты гистограммы
 var getBarChartHeight = function (maxTime, currentTime) {
   return Math.round((currentTime * BAR_CHART_MAX_HEIGHT) / maxTime);
-}
+};
 
-//Функция генерации случайного числа от 1 до 9
+// Функция генерации случайного числа от 1 до 9
 var getRandomNumber = function () {
   return Math.round(Math.random() * (10 - 1) + 1);
-}
+};
 
-//Функция возвращающая максимальный элемент массива
+// Функция возвращающая максимальный элемент массива
 var getMaxElement = function (array) {
   var maxElement = array[0];
   for (var i = 0; i < array.length; i++) {
@@ -42,12 +42,12 @@ var getMaxElement = function (array) {
   return maxElement;
 }
 
-//Функция отрисовки гистограммы
+// Функция отрисовки гистограммы
   var renderBarChart = function(ctx, names, times) {
-    //Находи максимальное время в массиве times
+    // Находи максимальное время в массиве times
     var maxTime = getMaxElement(times);
 
-    //Проходим по массиву times и отрисовываем колонки гистаграммы
+    // Проходим по массиву times и отрисовываем колонки гистаграммы
     var color;
     var barChartPositionX = BAR_CHART_START_POSITION_X;
     for (var i = 0; i < names.length; i++) {
@@ -81,4 +81,4 @@ window.renderStatistics = function (ctx, names, times) {
   ctx.fillText('Список результатов:', SUCCESS_TEXT_X, SUCCESS_TEXT_Y + (2 * GAP));
 
   renderBarChart(ctx, names, times);
-}
+};
