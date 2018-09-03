@@ -15,7 +15,7 @@ var SUCCESS_TEXT_X = 110;
 var SUCCESS_TEXT_Y = 40;
 
 // Функция отрисовки облака
-var renderCloud = function (ctx, x, y, color){
+var renderCloud = function (ctx, x, y, color) {
   ctx.fillStyle = color;
   ctx.fillRect(x, y, CLOUD_WIDTH, CLOUD_HEIGTH);
 };
@@ -40,34 +40,32 @@ var getMaxElement = function (array) {
   }
 
   return maxElement;
-}
+};
 
 // Функция отрисовки гистограммы
-  var renderBarChart = function(ctx, names, times) {
-    // Находи максимальное время в массиве times
-    var maxTime = getMaxElement(times);
-
-    // Проходим по массиву times и отрисовываем колонки гистаграммы
-    var color;
-    var barChartPositionX = BAR_CHART_START_POSITION_X;
-    for (var i = 0; i < names.length; i++) {
-      color = 'rgba(35, 100, 250, 0.' + getRandomNumber() + ')';
-      if (names[i] === 'Вы') {
-        color = 'rgba(255, 0, 0, 1)';
-      }
-      ctx.fillStyle = color;
-      var carrentBarChartHeight = getBarChartHeight(maxTime, times[i]);
-      ctx.fillRect(barChartPositionX, BAR_CHART_START_POSITION_Y + (BAR_CHART_MAX_HEIGHT - carrentBarChartHeight), BAR_CHART_COLUMN_WIDTH, carrentBarChartHeight);
-
-      ctx.fillStyle = '#000';
-      ctx.textBaseline = 'alphabetic';
-      ctx.fillText(Math.round(times[i]), barChartPositionX, BAR_CHART_START_POSITION_Y + (BAR_CHART_MAX_HEIGHT - carrentBarChartHeight) - GAP);
-      ctx.textBaseline = 'hanging';
-      ctx.fillText(names[i], barChartPositionX, BAR_CHART_START_POSITION_Y + BAR_CHART_MAX_HEIGHT + GAP);
-      if (i < names.length - 1) {
-        barChartPositionX += BAR_CHART_COLUMN_WIDTH + BAR_CHART_COLUMN_INTERVAL;
-      }
+var renderBarChart = function (ctx, names, times) {
+  // Находи максимальное время в массиве times
+  var maxTime = getMaxElement(times);
+  // Проходим по массиву times и отрисовываем колонки гистаграммы
+  var color;
+  var barChartPositionX = BAR_CHART_START_POSITION_X;
+  for (var i = 0; i < names.length; i++) {
+    color = 'rgba(35, 100, 250, 0.' + getRandomNumber() + ')';
+    if (names[i] === 'Вы') {
+      color = 'rgba(255, 0, 0, 1)';
     }
+    ctx.fillStyle = color;
+    var carrentBarChartHeight = getBarChartHeight(maxTime, times[i]);
+    ctx.fillRect(barChartPositionX, BAR_CHART_START_POSITION_Y + (BAR_CHART_MAX_HEIGHT - carrentBarChartHeight), BAR_CHART_COLUMN_WIDTH, carrentBarChartHeight);
+    ctx.fillStyle = '#000';
+    ctx.textBaseline = 'alphabetic';
+    ctx.fillText(Math.round(times[i]), barChartPositionX, BAR_CHART_START_POSITION_Y + (BAR_CHART_MAX_HEIGHT - carrentBarChartHeight) - GAP);
+    ctx.textBaseline = 'hanging';
+    ctx.fillText(names[i], barChartPositionX, BAR_CHART_START_POSITION_Y + BAR_CHART_MAX_HEIGHT + GAP);
+    if (i < names.length - 1) {
+      barChartPositionX += BAR_CHART_COLUMN_WIDTH + BAR_CHART_COLUMN_INTERVAL;
+    }
+  }
 };
 
 window.renderStatistics = function (ctx, names, times) {
