@@ -56,12 +56,13 @@ var getMaxElement = function (array) {
         color = 'rgba(255, 0, 0, 1)';
       }
       ctx.fillStyle = color;
-      var carrentBarChartHeight = getBarChartHeight(maxTime, times[i]);
-      ctx.fillRect(barChartPositionX, BAR_CHART_START_POSITION_Y + (BAR_CHART_MAX_HEIGHT - carrentBarChartHeight), BAR_CHART_COLUMN_WIDTH, carrentBarChartHeight);
+      var currentBarChartHeight = getBarChartHeight(maxTime, times[i]);
+      var realBarChartStartPositionY = BAR_CHART_START_POSITION_Y + (BAR_CHART_MAX_HEIGHT - currentBarChartHeight);
+      ctx.fillRect(barChartPositionX, realBarChartStartPositionY, BAR_CHART_COLUMN_WIDTH, currentBarChartHeight);
 
       ctx.fillStyle = '#000';
       ctx.textBaseline = 'alphabetic';
-      ctx.fillText(Math.round(times[i]), barChartPositionX, BAR_CHART_START_POSITION_Y + (BAR_CHART_MAX_HEIGHT - carrentBarChartHeight) - GAP);
+      ctx.fillText(Math.round(times[i]), barChartPositionX, realBarChartStartPositionY - GAP);
       ctx.textBaseline = 'hanging';
       ctx.fillText(names[i], barChartPositionX, BAR_CHART_START_POSITION_Y + BAR_CHART_MAX_HEIGHT + GAP);
       if (i < names.length - 1) {
