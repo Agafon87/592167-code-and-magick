@@ -60,7 +60,7 @@ var renderBarChart = function (ctx, names, times) {
     var currentBarChartHeight = getBarChartHeight(maxTime, times[i]);
     var realBarChartStartPositionY = BAR_CHART_START_POSITION_Y + (BAR_CHART_MAX_HEIGHT - currentBarChartHeight);
     ctx.fillRect(barChartPositionX, realBarChartStartPositionY, BAR_CHART_COLUMN_WIDTH, currentBarChartHeight);
-    // ctx.fillStyle = '#000';
+    ctx.fillStyle = '#000';
     ctx.textBaseline = 'alphabetic';
     ctx.fillText(Math.round(times[i]), barChartPositionX, realBarChartStartPositionY - GAP);
     ctx.textBaseline = 'hanging';
