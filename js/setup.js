@@ -7,7 +7,11 @@ var WIZARDS_COAT_COLOR_AMOUNT_MIN = 0;
 var WIZARDS_COAT_COLOR_AMOUNT_MAX = 5;
 var WIZARDS_EYES_COLOR_AMOUNT_MIN = 0;
 var WIZARDS_EYES_COLOR_AMOUNT_MAX = 4;
+var WIZARDS_FIREBALL_COLOR_AMOUNT_MIN = 0;
+var WIZARDS_FIREBALL_COLOR_AMOUNT_MAX = 4;
 var WIZARDS_AMOUNT = 4;
+var ESC_KEYCODE_PRESS = 27;
+var ENTER_KEYCODE_PRESS = 13;
 
 var WIZARDS_DESCRIPTION = [];
 
@@ -50,6 +54,14 @@ var WIZARDS_EYES_COLOR = [
   'green'
 ];
 
+var WIZARDS_FIREBALL_COLOR = [
+  '#ee4830',
+  '#30a8ee',
+  '#5ce6c0',
+  '#e848d5',
+  '#e6e848',
+];
+
 // Функция генерирующая случайные числа
 var getRandomNumber = function (min, max) {
   return Math.round(Math.random() * (max - min) + min);
@@ -75,8 +87,62 @@ var getWizard = function (nameWizard, coatColorWizard, eyesColorWizard) {
   }
 })();
 
+
+// Обработчик события нажатия клавиши Esc
+var escClickHandler = function (evt) {
+  var classTarget = evt.target.className;
+  if (evt.keyCode === ESC_KEYCODE_PRESS && classTarget !== 'setup-user-name') {
+    closePopupSetupWizards();
+  }
+};
+
+
+// Функция открывающая окно настроек волшебника
+var openPopupSetupWizards = function () {
+  setupWizards.classList.remove('hidden');
+
+  document.addEventListener('keydown', escClickHandler);
+};
+
+
+// Функция закрывающая окно настроек волшебника
+var closePopupSetupWizards = function () {
+  document.removeEventListener('keydown', escClickHandler);
+
+  setupWizards.classList.add('hidden');
+};
+
 var setupWizards = document.querySelector('.setup');
-setupWizards.classList.remove('hidden');
+var setupClose = setupWizards.querySelector('.setup-close');
+var setupOpenIcon = document.querySelector('.setup-open-icon');
+
+
+// Открытие окна настроек волшебника при клике на иконку
+setupOpenIcon.addEventListener('click', function () {
+  openPopupSetupWizards();
+});
+
+
+// Открытие окна настроек волшебника при нажатии клавиши enter на иконку
+setupOpenIcon.addEventListener('keydown', function (evt) {
+  if (evt.keyCode === ENTER_KEYCODE_PRESS) {
+    openPopupSetupWizards();
+  }
+});
+
+
+// Закрытие окна настроек волшебника при клике на крестик
+setupClose.addEventListener('click', function () {
+  closePopupSetupWizards();
+});
+
+
+// Закрытие окна настроек волшебника при нажатии клавиши enter на крестик
+setupClose.addEventListener('keydown', function (evt) {
+  if (evt.keyCode === ENTER_KEYCODE_PRESS) {
+    closePopupSetupWizards();
+  }
+});
 
 var wizardsTemplate = document.querySelector('#similar-wizard-template')
   .content
@@ -110,3 +176,33 @@ wizardsList.appendChild(fragment);
 
 var setupSimilarWizards = document.querySelector('.setup-similar');
 setupSimilarWizards.classList.remove('hidden');
+
+
+// Обработчик события нажатия на мантии меняющий цвет мантии
+var coatWizard = document.querySelector('.setup-wizard .wizard-coat');
+coatWizard.addEventListener('click', function () {
+  var wizardCoatColor = WIZARDS_COAT_COLOR[getRandomNumber(WIZARDS_COAT_COLOR_AMOUNT_MIN, WIZARDS_COAT_COLOR_AMOUNT_MAX)];
+  coatWizard.style.fill = wizardCoatColor;
+  var inputHiddenCoatColorWizard = document.querySelector('input[type=hidden][name="coat-color"]');
+  inputHiddenCoatColorWizard.value = wizardCoatColor;
+});
+
+
+// Обработчик события нажатия на глаза волшебника меняющий цвет глаз
+var eyesWizard = document.querySelector('.setup-wizard .wizard-eyes');
+eyesWizard.addEventListener('click', function () {
+  var wizardEyesColor = WIZARDS_EYES_COLOR[getRandomNumber(WIZARDS_EYES_COLOR_AMOUNT_MIN, WIZARDS_EYES_COLOR_AMOUNT_MAX)];
+  eyesWizard.style.fill = wizardEyesColor;
+  var inputHiddenEyesWizard = document.querySelector('input[type=hidden][name="eyes-color"]');
+  inputHiddenEyesWizard.value = wizardEyesColor;
+});
+
+
+// Обработчик события нажатия на файрбол волшебника меняющий цвет файрбола
+var fireballWizard = document.querySelector('.setup-fireball-wrap');
+fireballWizard.addEventListener('click', function () {
+  var wizardFireballColor = WIZARDS_FIREBALL_COLOR[getRandomNumber(WIZARDS_FIREBALL_COLOR_AMOUNT_MIN, WIZARDS_FIREBALL_COLOR_AMOUNT_MAX)];
+  fireballWizard.style.background = wizardFireballColor;
+  var inputHiddenFireballWizard = fireballWizard.querySelector('input[type=hidden]');
+  inputHiddenFireballWizard.value = wizardFireballColor;
+});

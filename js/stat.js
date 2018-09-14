@@ -13,6 +13,8 @@ var BAR_CHART_START_POSITION_Y = 100;
 var GAP = 10;
 var SUCCESS_TEXT_X = 110;
 var SUCCESS_TEXT_Y = 40;
+var BAR_CHART_ALPHA_MIN = 1;
+var BAR_CHART_ALPHA_MAX = 10;
 
 // Функция отрисовки облака
 var renderCloud = function (ctx, x, y, color) {
@@ -26,8 +28,8 @@ var getBarChartHeight = function (maxTime, currentTime) {
 };
 
 // Функция генерации случайного числа от 1 до 9
-var getRandomNumber = function () {
-  return Math.round(Math.random() * (10 - 1) + 1);
+var getRandomNumber = function (min, max) {
+  return Math.round(Math.random() * (max - min) + min);
 };
 
 // Функция возвращающая максимальный элемент массива
@@ -50,7 +52,7 @@ var renderBarChart = function (ctx, names, times) {
   var color;
   var barChartPositionX = BAR_CHART_START_POSITION_X;
   for (var i = 0; i < names.length; i++) {
-    color = 'rgba(35, 100, 250, 0.' + getRandomNumber() + ')';
+    color = 'rgba(35, 100, 250, 0.' + getRandomNumber(BAR_CHART_ALPHA_MIN, BAR_CHART_ALPHA_MAX) + ')';
     if (names[i] === 'Вы') {
       color = 'rgba(255, 0, 0, 1)';
     }
