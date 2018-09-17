@@ -16,48 +16,21 @@ var SUCCESS_TEXT_Y = 40;
 var BAR_CHART_ALPHA_MIN = 1;
 var BAR_CHART_ALPHA_MAX = 10;
 
-// Функция отрисовки облака
-var renderCloud = function (ctx, x, y, color) {
-  ctx.fillStyle = color;
-  ctx.fillRect(x, y, CLOUD_WIDTH, CLOUD_HEIGTH);
-};
-
-// Функция для подсчета высоты гистограммы
-var getBarChartHeight = function (maxTime, currentTime) {
-  return Math.round((currentTime * BAR_CHART_MAX_HEIGHT) / maxTime);
-};
-
-// Функция генерации случайного числа от 1 до 9
-var getRandomNumber = function (min, max) {
-  return Math.round(Math.random() * (max - min) + min);
-};
-
-// Функция возвращающая максимальный элемент массива
-var getMaxElement = function (array) {
-  var maxElement = array[0];
-  for (var i = 0; i < array.length; i++) {
-    if (array[i] > maxElement) {
-      maxElement = array[i];
-    }
-  }
-
-  return maxElement;
-};
 
 // Функция отрисовки гистограммы
 var renderBarChart = function (ctx, names, times) {
   // Находи максимальное время в массиве times
-  var maxTime = getMaxElement(times);
+  var maxTime = window.util.getMaxElement(times);
   // Проходим по массиву times и отрисовываем колонки гистаграммы
   var color;
   var barChartPositionX = BAR_CHART_START_POSITION_X;
   for (var i = 0; i < names.length; i++) {
-    color = 'rgba(35, 100, 250, 0.' + getRandomNumber(BAR_CHART_ALPHA_MIN, BAR_CHART_ALPHA_MAX) + ')';
+    color = 'rgba(35, 100, 250, 0.' + window.util.getRandomNumber(BAR_CHART_ALPHA_MIN, BAR_CHART_ALPHA_MAX) + ')';
     if (names[i] === 'Вы') {
       color = 'rgba(255, 0, 0, 1)';
     }
     ctx.fillStyle = color;
-    var currentBarChartHeight = getBarChartHeight(maxTime, times[i]);
+    var currentBarChartHeight = window.util.getBarChartHeight(maxTime, times[i], BAR_CHART_MAX_HEIGHT);
     var realBarChartStartPositionY = BAR_CHART_START_POSITION_Y + (BAR_CHART_MAX_HEIGHT - currentBarChartHeight);
     ctx.fillRect(barChartPositionX, realBarChartStartPositionY, BAR_CHART_COLUMN_WIDTH, currentBarChartHeight);
     ctx.fillStyle = '#000';
@@ -71,9 +44,11 @@ var renderBarChart = function (ctx, names, times) {
   }
 };
 
+
 window.renderStatistics = function (ctx, names, times) {
-  renderCloud(ctx, CLOUD_X + GAP, CLOUD_Y + GAP, 'rgba(0, 0, 0, 0.7)');
-  renderCloud(ctx, CLOUD_X, CLOUD_Y, '#fff');
+
+  window.util.renderCloud(ctx, CLOUD_X + GAP, CLOUD_Y + GAP, 'rgba(0, 0, 0, 0.7)', CLOUD_WIDTH, CLOUD_HEIGTH);
+  window.util.renderCloud(ctx, CLOUD_X, CLOUD_Y, '#fff', CLOUD_WIDTH, CLOUD_HEIGTH);
 
   ctx.fillStyle = '#000';
   ctx.font = '16px PT Mono';
