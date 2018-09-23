@@ -5,6 +5,9 @@
   var ESC_KEYCODE_PRESS = 27;
   var ENTER_KEYCODE_PRESS = 13;
 
+  var setupWizards = document.querySelector('.setup');
+  var setupClose = setupWizards.querySelector('.setup-close');
+  var setupOpenIcon = document.querySelector('.setup-open-icon');
 
   // Обработчик события нажатия клавиши Esc
   var escClickHandler = function (evt) {
@@ -25,14 +28,11 @@
 
   // Функция закрывающая окно настроек волшебника
   var closePopupSetupWizards = function () {
-    document.removeEventListener('keydown', escClickHandler);
+    setupWizards.removeAttribute('style');
 
+    document.removeEventListener('keydown', escClickHandler);
     setupWizards.classList.add('hidden');
   };
-
-  var setupWizards = document.querySelector('.setup');
-  var setupClose = setupWizards.querySelector('.setup-close');
-  var setupOpenIcon = document.querySelector('.setup-open-icon');
 
 
   // Открытие окна настроек волшебника при клике на иконку
