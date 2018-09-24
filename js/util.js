@@ -25,11 +25,24 @@
     return Math.round((currentTime * maxHeight) / maxTime);
   };
 
+
+  var cbError = function (errorMessage) {
+    var elem = document.querySelector('.error-message-from-server');
+    if (!elem) {
+      var container = document.createElement('div');
+      container.classList.add('error-message-from-server');
+      container.textContent = errorMessage;
+      document.body.insertBefore(container, document.body.children[0]);
+    }
+  };
+
+
   window.util = {
     renderCloud: renderCloud,
     getMaxElement: getMaxElement,
     getRandomNumber: getRandomNumber,
-    getBarChartHeight: getBarChartHeight
+    getBarChartHeight: getBarChartHeight,
+    cbError: cbError
   };
 })();
 

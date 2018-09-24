@@ -66,4 +66,18 @@
   var setupSimilarWizards = document.querySelector('.setup-similar');
   setupSimilarWizards.classList.remove('hidden');
 
+
+  var cbSuccess = function (response) {
+    if (response) {
+      setupWizards.classList.add('hidden');
+    }
+  };
+
+
+  var formSetup = document.querySelector('.setup-wizard-form');
+  formSetup.addEventListener('submit', function (evt) {
+    window.backend.save(new FormData(formSetup), cbSuccess, window.util.cbError);
+    evt.preventDefault();
+  });
+
 })();
