@@ -2,12 +2,16 @@
 
 (function () {
 
-  var WIZARDS_COAT_COLOR_AMOUNT_MIN = 0;
-  var WIZARDS_COAT_COLOR_AMOUNT_MAX = 5;
-  var WIZARDS_EYES_COLOR_AMOUNT_MIN = 0;
-  var WIZARDS_EYES_COLOR_AMOUNT_MAX = 4;
-  var WIZARDS_FIREBALL_COLOR_AMOUNT_MIN = 0;
-  var WIZARDS_FIREBALL_COLOR_AMOUNT_MAX = 4;
+  // var WIZARDS_COAT_COLOR_AMOUNT_MIN = 0;
+  // var WIZARDS_COAT_COLOR_AMOUNT_MAX = 5;
+  // var WIZARDS_EYES_COLOR_AMOUNT_MIN = 0;
+  // var WIZARDS_EYES_COLOR_AMOUNT_MAX = 4;
+  // var WIZARDS_FIREBALL_COLOR_AMOUNT_MIN = 0;
+  // var WIZARDS_FIREBALL_COLOR_AMOUNT_MAX = 4;
+
+  var coatWizard = document.querySelector('.setup-wizard .wizard-coat');
+  var eyesWizard = document.querySelector('.setup-wizard .wizard-eyes');
+  var fireballWizard = document.querySelector('.setup-fireball-wrap');
 
   var WIZARDS_COAT_COLOR = [
     'rgb(101, 137, 164)',
@@ -36,32 +40,32 @@
 
 
   // Обработчик события нажатия на мантии меняющий цвет мантии
-  var coatWizard = document.querySelector('.setup-wizard .wizard-coat');
   coatWizard.addEventListener('click', function () {
-    var wizardCoatColor = WIZARDS_COAT_COLOR[window.util.getRandomNumber(WIZARDS_COAT_COLOR_AMOUNT_MIN, WIZARDS_COAT_COLOR_AMOUNT_MAX)];
+    var wizardCoatColor = window.util.getRandomElement(WIZARDS_COAT_COLOR);
     coatWizard.style.fill = wizardCoatColor;
     var inputHiddenCoatColorWizard = document.querySelector('input[type=hidden][name="coat-color"]');
     inputHiddenCoatColorWizard.value = wizardCoatColor;
+    window.renderSimilarWizards.updateWizards();
   });
 
 
   // Обработчик события нажатия на глаза волшебника меняющий цвет глаз
-  var eyesWizard = document.querySelector('.setup-wizard .wizard-eyes');
   eyesWizard.addEventListener('click', function () {
-    var wizardEyesColor = WIZARDS_EYES_COLOR[window.util.getRandomNumber(WIZARDS_EYES_COLOR_AMOUNT_MIN, WIZARDS_EYES_COLOR_AMOUNT_MAX)];
+    var wizardEyesColor = window.util.getRandomElement(WIZARDS_EYES_COLOR);
     eyesWizard.style.fill = wizardEyesColor;
     var inputHiddenEyesWizard = document.querySelector('input[type=hidden][name="eyes-color"]');
     inputHiddenEyesWizard.value = wizardEyesColor;
+    window.renderSimilarWizards.updateWizards();
   });
 
 
   // Обработчик события нажатия на файрбол волшебника меняющий цвет файрбола
-  var fireballWizard = document.querySelector('.setup-fireball-wrap');
   fireballWizard.addEventListener('click', function () {
-    var wizardFireballColor = WIZARDS_FIREBALL_COLOR[window.util.getRandomNumber(WIZARDS_FIREBALL_COLOR_AMOUNT_MIN, WIZARDS_FIREBALL_COLOR_AMOUNT_MAX)];
+    var wizardFireballColor = window.util.getRandomElement(WIZARDS_FIREBALL_COLOR);
     fireballWizard.style.background = wizardFireballColor;
     var inputHiddenFireballWizard = fireballWizard.querySelector('input[type=hidden]');
     inputHiddenFireballWizard.value = wizardFireballColor;
+    window.renderSimilarWizards.updateWizards();
   });
 
 })();

@@ -26,6 +26,12 @@
   };
 
 
+  var getRandomElement = function (array) {
+    var randomElementIndex = Math.floor(Math.random() * array.length);
+    return array[randomElementIndex];
+  };
+
+
   var cbError = function (errorMessage) {
     var elem = document.querySelector('.error-message-from-server');
     if (!elem) {
@@ -42,7 +48,8 @@
     getMaxElement: getMaxElement,
     getRandomNumber: getRandomNumber,
     getBarChartHeight: getBarChartHeight,
-    cbError: cbError
+    cbError: cbError,
+    getRandomElement: getRandomElement
   };
 })();
 
